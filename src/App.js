@@ -18,17 +18,18 @@ class App extends Component {
   }
 
   formSubmitHandler = data => {
+    const { contacts } = this.state;
     const checkSameName =
-      this.state.contacts.some(({ name, number }) =>
+      contacts.some(({ name, number }) =>
         name === data.name && number === data.number);
     
     const message = `${data.name} with this phone number - ${data.number} are already in contacts!`;
 
-      this.setState((prevState) => ({
-        contacts:
-          checkSameName ?
-            (alert(message), prevState.contacts) :
-            [data, ...prevState.contacts]
+    this.setState(({contacts}) => ({
+      contacts:
+        checkSameName ?
+          (alert(message), contacts) :
+          [data, ...contacts]
     }))
   }
 
@@ -71,7 +72,7 @@ class App extends Component {
           <ContactsList
             contactsBook={visibleContacts}
             onClickDelete={this.deleteContact}
-          />  
+          />
         </Section>
       </>  
     )
